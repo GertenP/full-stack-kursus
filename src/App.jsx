@@ -1,44 +1,54 @@
 import { useState } from 'react'
 
-const Display = ({counter}) => {
-  return(
-    <div>{counter}</div>
-  )
-}
-
-const Button = ({onClick, text}) => {
-  return(
-    <button onClick={onClick}>
-      {text}
-    </button>
-  )
-}
-
 const App = () => {
-  const [counter, setCounter] = useState(0)
-  console.log("rendering with counter value", counter)
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
 
-  const decreasteByOne = () => {
-    console.log('increasing, value before', counter)
-    setCounter(counter - 1)
 
-    }
-  const increasteByOne = () => {
-    console.log('decreasing, value before', counter)
-    setCounter(counter + 1)
-  }
-  const setToZero = () => {
-    console.log('resetting to zero, value before', counter)
-    setCounter(0)
-  }
-  return ( 
+  return (
     <div>
-      <Display counter={counter}/>
-      <Button text="-" onClick={decreasteByOne}/>
-      <Button text="0" onClick={setToZero}/>
-      <Button text="+" onClick={increasteByOne}/>
+      <div>
+        <h2>Give feedback</h2>
+
+        <button onClick={() => { setGood(good + 1) }}>good</button>
+        <button onClick={() => { setNeutral(neutral + 1) }}>neutral</button>
+        <button onClick={() => { setBad(bad + 1) }}>bad</button>
+      </div>
+
+      <div>
+        <h2>Statistics</h2>
+        <table>
+          <tr>
+            <td>Good</td>
+            <td>{good}</td>
+          </tr>
+          <tr>
+            <td>neutral</td>
+            <td>{neutral}</td>
+          </tr>
+          <tr>
+            <td>bad</td>
+            <td>{bad}</td>
+          </tr>
+          <tr>
+            <td>all</td>
+            <td>{bad + neutral + good}</td>
+          </tr>
+          <tr>
+            <td>average</td>
+            <td>{(good*1 + neutral*0 + bad*-1) / (bad + neutral + good)}</td>
+          </tr>
+          <tr>
+            <td>positive</td>
+            <td>{Math.round(good / (bad + neutral + good) * 100)}%</td>
+          </tr>       
+          </table>
+
+      </div>
 
     </div>
+
   )
 }
 
